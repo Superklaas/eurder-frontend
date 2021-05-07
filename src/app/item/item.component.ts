@@ -20,4 +20,9 @@ export class ItemComponent implements OnInit {
   private getItems(): void {
     this.itemService.getAllItems().subscribe(items => this.items = items);
   }
+
+  deleteItem(item: Item): void {
+    this.items = this.items.filter(i => i !== item);
+    this.itemService.deleteItem(item).subscribe();
+  }
 }

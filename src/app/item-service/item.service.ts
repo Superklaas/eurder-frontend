@@ -11,17 +11,23 @@ import {catchError} from 'rxjs/operators';
 export class ItemService {
 
   private itemUrl: string;
-  private managerToken: string;
+  private adminToken: string;
 
   constructor(private http: HttpClient) {
     this.itemUrl = `${environment.backendUrl}/items`;
-    this.managerToken = '2';
+    this.adminToken = '2';
   }
 
   getAllItems(): Observable<Item[]> {
-    const headers = new HttpHeaders().append('authToken', this.managerToken);
+    const headers = new HttpHeaders().append('authToken', this.adminToken);
     return this.http.get<Item[]>(this.itemUrl, {headers})
       .pipe(catchError(this.handleError<Item[]>('getAllItems', [])));
+  }
+
+  deleteItem(item: Item): Observable<Item> {
+    const headers = new HttpHeaders().append('authToken', this.adminToken);
+    return this.http.delete<Item>(`${this.itemUrl}/${item.id}`,{headers})
+      .pipe(catchError(this.handleError<Item>('deleteItem', null)));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
@@ -30,5 +36,4 @@ export class ItemService {
       return of(result as T);
     };
   }
-
 }

@@ -4,11 +4,16 @@
     <th>Description</th>
     <th>Price</th>
     <th>Stock</th>
+    <th>Actions</th>
   </tr>
   <tr *ngFor="let item of items">
     <td>{{item.name}}</td>
     <td>{{item.description}}</td>
     <td>{{item.price}}</td>
     <td>{{item.stock}}</td>
+    <td>
+      <button>Update</button>
+      <button (click)="deleteItem(item)">Delete</button>
+    </td>
   </tr>
 </table>
