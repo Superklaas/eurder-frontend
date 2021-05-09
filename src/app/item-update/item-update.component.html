@@ -1,21 +1,27 @@
 <p>Update here the details of the selected item</p>
-<form [formGroup]="updateItemForm" (ngSubmit)="onSubmit()">
+
+<div *ngIf="item">
+  <div>id: {{item.id}}</div>
   <div>
-    <label for="name">Name</label>
-    <input type="text" id="name" formControlName="name">
+    <label for="name">Name </label>
+    <input id="name" type="text" [(ngModel)]="item.name">
   </div>
   <div>
-    <label for="description">Description</label>
-    <input type="text" id="description" formControlName="description">
+    <label for="description">Description </label>
+    <input id="description" type="text" [(ngModel)]="item.description">
   </div>
   <div>
-    <label for="price">Price</label>
-    <input type="text" id="price" formControlName="price">
+    <label for="price">Price </label>
+    <input id="price" type="text" [(ngModel)]="item.price">
   </div>
   <div>
-    <label for="stock">Stock</label>
-    <input type="text" id="stock" formControlName="stock">
+    <label for="stock">Stock </label>
+    <input id="stock" type="text" [(ngModel)]="item.stock">
   </div>
-  <button type="submit" routerLink="">Update item</button>
-</form>
+</div>
+
+<button (click)="updateItem()">Update item</button>
+
+
+
 

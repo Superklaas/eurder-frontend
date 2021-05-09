@@ -30,6 +30,12 @@ export class ItemService {
       .pipe(catchError(this.handleError<Item[]>('getAllItems', [])));
   }
 
+  getItemById(id: string): Observable<Item> {
+    const headers = new HttpHeaders().append('authToken', this.adminToken);
+    return this.http.get<Item>(`${this.itemUrl}/${id}`,{headers})
+      .pipe(catchError(this.handleError<Item>('getItemById', null)));
+  }
+
   updateItem(item: Item): Observable<Item> {
     const headers = new HttpHeaders().append('authToken', this.adminToken);
     return this.http.put<Item>(`${this.itemUrl}/${item.id}`, item, {headers})
@@ -48,5 +54,6 @@ export class ItemService {
       return of(result as T);
     };
   }
+
 
 }
