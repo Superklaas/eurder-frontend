@@ -24,9 +24,15 @@ export class ItemService {
       .pipe(catchError(this.handleError<Item[]>('getAllItems', [])));
   }
 
+  updateItem(item: Item): Observable<any> {
+    const headers = new HttpHeaders().append('authToken', this.adminToken);
+    return this.http.put<Item>(`${this.itemUrl}/${item.id}`, item, {headers})
+      .pipe(catchError(this.handleError<Item>('updateItem', null)));
+  }
+
   deleteItem(item: Item): Observable<Item> {
     const headers = new HttpHeaders().append('authToken', this.adminToken);
-    return this.http.delete<Item>(`${this.itemUrl}/${item.id}`,{headers})
+    return this.http.delete<Item>(`${this.itemUrl}/${item.id}`, {headers})
       .pipe(catchError(this.handleError<Item>('deleteItem', null)));
   }
 
@@ -36,4 +42,5 @@ export class ItemService {
       return of(result as T);
     };
   }
+
 }

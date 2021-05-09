@@ -1,0 +1,21 @@
+<p>Update here the details of the selected item</p>
+<form [formGroup]="updateItemForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Name</label>
+    <input type="text" id="name" formControlName="name">
+  </div>
+  <div>
+    <label for="description">Description</label>
+    <input type="text" id="description" formControlName="description">
+  </div>
+  <div>
+    <label for="price">Price</label>
+    <input type="text" id="price" formControlName="price">
+  </div>
+  <div>
+    <label for="stock">Stock</label>
+    <input type="text" id="stock" formControlName="stock">
+  </div>
+  <button type="submit" routerLink="">Update item</button>
+</form>
+

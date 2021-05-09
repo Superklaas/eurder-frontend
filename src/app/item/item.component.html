@@ -12,7 +12,7 @@
     <td>{{item.price}}</td>
     <td>{{item.stock}}</td>
     <td>
-      <button>Update</button>
+      <button routerLink="update/{{item.id}}">Update</button>
       <button (click)="deleteItem(item)">Delete</button>
     </td>
   </tr>
