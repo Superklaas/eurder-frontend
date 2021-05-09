@@ -27,8 +27,8 @@ export class ItemUpdateComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.itemService.updateItem(this.updateItemForm.value).subscribe(data => {
-      console.log('message::::', data);
+    this.itemService.updateItem(this.updateItemForm.value).subscribe(updatedItem => {
+      console.log(updatedItem);
       this.updateItemForm.reset();
     });
   }

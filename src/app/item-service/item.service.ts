@@ -18,13 +18,19 @@ export class ItemService {
     this.adminToken = '2';
   }
 
+  createItem(item: Item): Observable<Item> {
+    const headers = new HttpHeaders().append('authToken', this.adminToken);
+    return this.http.post<Item>(this.itemUrl, item,{headers})
+      .pipe(catchError(this.handleError<Item>('createItem', null)));
+  }
+
   getAllItems(): Observable<Item[]> {
     const headers = new HttpHeaders().append('authToken', this.adminToken);
     return this.http.get<Item[]>(this.itemUrl, {headers})
       .pipe(catchError(this.handleError<Item[]>('getAllItems', [])));
   }
 
-  updateItem(item: Item): Observable<any> {
+  updateItem(item: Item): Observable<Item> {
     const headers = new HttpHeaders().append('authToken', this.adminToken);
     return this.http.put<Item>(`${this.itemUrl}/${item.id}`, item, {headers})
       .pipe(catchError(this.handleError<Item>('updateItem', null)));
