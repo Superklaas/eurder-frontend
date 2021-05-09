@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder} from "@angular/forms";
 import {ItemService} from "../item-service/item.service";
 import {ActivatedRoute} from "@angular/router";
+import {Item} from "../model/item";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-item-update',
@@ -10,26 +12,29 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ItemUpdateComponent implements OnInit {
 
-  updateItemForm = this.formBuilder.group({
-    id: Number(this.route.snapshot.paramMap.get('id')),
-    name: '',
-    description: '',
-    price: '',
-    stock: ''
-  });
+  item?: Item;
 
   constructor(private formBuilder: FormBuilder,
               private itemService: ItemService,
-              private route: ActivatedRoute
+              private route: ActivatedRoute,
+              private location: Location
   ) {}
 
   ngOnInit(): void {
+    this.getItem();
   }
 
-  onSubmit(): void {
-    this.itemService.updateItem(this.updateItemForm.value).subscribe(updatedItem => {
-      console.log(updatedItem);
-      this.updateItemForm.reset();
-    });
+  getItem(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.itemService.getItemById(id).subscribe(item => this.item = item);
   }
+
+  updateItem() {
+    this.itemService.updateItem(this.item).subscribe(() => this.goBack());
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
 }

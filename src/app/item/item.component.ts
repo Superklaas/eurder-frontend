@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ItemService} from "../item-service/item.service";
 import {Item} from "../model/item";
+import {ItemUpdateComponent} from "../item-update/item-update.component";
 
 @Component({
   selector: 'app-item',
@@ -25,4 +26,5 @@ export class ItemComponent implements OnInit {
     this.items = this.items.filter(i => i !== item);
     this.itemService.deleteItem(item).subscribe();
   }
+
 }
